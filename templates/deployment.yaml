@@ -35,6 +35,9 @@ spec:
     metadata:
       labels:
         {{- include "..selectorLabels" . | nindent 8 }}
+        {{- if .Values.deployment.podLabels }}
+        {{- toYaml .Values.deployment.podLabels | nindent 8 }}
+        {{- end }}
       annotations:
         checksum.deployment.toml: {{ include (print $.Template.BasePath "/cm-deployment-toml.yaml") . | sha256sum }}
         {{- if .Values.deployment.secretStore.enabled  }}
@@ -47,6 +50,9 @@ spec:
         secret.k8s.aws/secret-name: {{ .Values.deployment.secretStore.aws.secretManager.secretName }}
         secret.k8s.aws/region: {{ .Values.deployment.secretStore.aws.secretManager.region }}
         secret.k8s.aws/output-path: {{ .Values.deployment.secretStore.aws.secretManager.outputPath }}
+        {{- end }}
+        {{- if .Values.deployment.podAnnotations }}
+        {{- toYaml .Values.deployment.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
       securityContext:
@@ -74,6 +80,10 @@ spec:
                       values:
                         - {{ .Release.Name }}
                 topologyKey: topology.kubernetes.io/zone
+      {{- if .Values.deployment.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.deployment.nodeSelector | nindent 8 }}
+      {{- end }}
       {{- if .Values.deployment.secretStore.aws.enabled }}
       initContainers:
         - name: aws-secrets-injector
