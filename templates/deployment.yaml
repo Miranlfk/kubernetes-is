@@ -34,11 +34,14 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "..selectorLabels" . | nindent 8 }}
         {{- if .Values.deployment.podLabels }}
         {{- toYaml .Values.deployment.podLabels | nindent 8 }}
         {{- end }}
+        {{- include "..selectorLabels" . | nindent 8 }}
       annotations:
+        {{- if .Values.deployment.podAnnotations }}
+        {{- toYaml .Values.deployment.podAnnotations | nindent 8 }}
+        {{- end }}
         checksum.deployment.toml: {{ include (print $.Template.BasePath "/cm-deployment-toml.yaml") . | sha256sum }}
         {{- if .Values.deployment.secretStore.enabled  }}
         checksum.secret.properties: {{ include (print $.Template.BasePath "/cm-secret-config-properties.yaml") . | sha256sum }}
@@ -50,9 +53,6 @@ spec:
         secret.k8s.aws/secret-name: {{ .Values.deployment.secretStore.aws.secretManager.secretName }}
         secret.k8s.aws/region: {{ .Values.deployment.secretStore.aws.secretManager.region }}
         secret.k8s.aws/output-path: {{ .Values.deployment.secretStore.aws.secretManager.outputPath }}
-        {{- end }}
-        {{- if .Values.deployment.podAnnotations }}
-        {{- toYaml .Values.deployment.podAnnotations | nindent 8 }}
         {{- end }}
     spec:
       securityContext:
