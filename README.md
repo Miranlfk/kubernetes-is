@@ -660,6 +660,7 @@ helm install "$RELEASE_NAME" wso2/identity-server --version 7.2.0-1  -n "$NAMESP
 | deployment.ingress.tlsSecretsName | string | `"is-tls"` | K8s TLS secret for configured hostname |
 | deployment.livenessProbe | object | `{"periodSeconds":10}` | Indicates whether the container is running |
 | deployment.livenessProbe.periodSeconds | int | `10` | How often (in seconds) to perform the probe |
+| deployment.nodeSelector | object | `{}` | Node selector to deploy pod in a selected node. Add a label to the node and specify the label here. |
 | deployment.pdb.minAvailable | string | `"50%"` | Minimum availability for PDB |
 | deployment.persistence.azure.enabled | bool | `true` | Enable persistence for artifact sharing using Azure file share |
 | deployment.persistence.azure.fileShare | string | `"is-share"` | Names of Azure File shares for persisted data |
@@ -668,6 +669,8 @@ helm install "$RELEASE_NAME" wso2/identity-server --version 7.2.0-1  -n "$NAMESP
 | deployment.persistence.enabled | bool | `false` | Enable persistence for artifact sharing |
 | deployment.persistence.subPaths.tenants | string | `"tenants"` | Azure storage account tenants file share path |
 | deployment.persistence.subPaths.userstores | string | `"userstores"` | Azure storage account userstores file share path |
+| deployment.podAnnotations | object | `{}` | Additional pod annotations |
+| deployment.podLabels | object | `{}` | Additional pod labels |
 | deployment.preStopHookWaitSeconds | int | `10` | preStopHookWaitInSeconds waits before calling server stop in the pre stop hook. |
 | deployment.productPackName | string | `"wso2is"` | Product pack name |
 | deployment.progressDeadlineSeconds | int | `600` | Progress deadline seconds where the Deployment controller waits before indicating (in the Deployment status) that the Deployment progress has stalled. |

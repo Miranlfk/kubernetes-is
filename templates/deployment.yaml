@@ -34,8 +34,14 @@ spec:
   template:
     metadata:
       labels:
+        {{- if .Values.deployment.podLabels }}
+        {{- toYaml .Values.deployment.podLabels | nindent 8 }}
+        {{- end }}
         {{- include "..selectorLabels" . | nindent 8 }}
       annotations:
+        {{- if .Values.deployment.podAnnotations }}
+        {{- toYaml .Values.deployment.podAnnotations | nindent 8 }}
+        {{- end }}
         checksum.deployment.toml: {{ include (print $.Template.BasePath "/cm-deployment-toml.yaml") . | sha256sum }}
         {{- if .Values.deployment.secretStore.enabled  }}
         checksum.secret.properties: {{ include (print $.Template.BasePath "/cm-secret-config-properties.yaml") . | sha256sum }}
@@ -74,6 +80,10 @@ spec:
                       values:
                         - {{ .Release.Name }}
                 topologyKey: topology.kubernetes.io/zone
+      {{- if .Values.deployment.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.deployment.nodeSelector | nindent 8 }}
+      {{- end }}
       {{- if .Values.deployment.secretStore.aws.enabled }}
       initContainers:
         - name: aws-secrets-injector

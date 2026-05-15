@@ -108,6 +108,12 @@ deployment:
   #      # Provide the name of the ConfigMap containing the files you want
   #      # to add to the container
   #      name: custom-property-file
+  # -- Additional pod labels
+  podLabels: {}
+  # -- Additional pod annotations
+  podAnnotations: {}
+  # -- Node selector to deploy pod in selected node. Add label to the node and specify the label here.
+  nodeSelector: {}
   securityContext:
     # -- Run as user ID
     runAsUser: 802
