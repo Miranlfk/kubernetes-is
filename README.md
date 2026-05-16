@@ -53,6 +53,32 @@ ___
 ### Security
 - AppArmor Security Module enabled
 
+### WSO2 Registry Access (for WSO2 Support users)
+
+If you are using WSO2 Support images from the WSO2 Container Registry (`registry.wso2.com`), you must authenticate using a registry token — WSO2 account credentials can no longer be used directly for CLI access.
+
+**Generate a Token:**
+1. Log in to the [WSO2 Support Portal](https://support.wso2.com).
+2. Navigate to **Projects > My Projects > Registry Tokens**.
+3. Click **Generate Token** and provide a descriptive name (e.g., `k8s-deployment-token`).
+4. **Important:** Copy the **Token ID** and **Token Secret** immediately — the secret is shown only once.
+
+For more details, refer to the [WSO2 Registry CLI Access documentation](https://updates.docs.wso2.com/en/latest/updates/wso2-registry-cli-access/).
+
+**Log in to the WSO2 Registry:**
+```shell
+docker login registry.wso2.com -u <Token_ID> -p <Token_Secret>
+```
+
+**Create a Kubernetes image pull secret** so that your cluster can pull images from the registry:
+```shell
+kubectl create secret docker-registry wso2-registry-credentials \
+  --docker-server=registry.wso2.com \
+  --docker-username=<Token_ID> \
+  --docker-password=<Token_Secret> \
+  -n $NAMESPACE
+```
+
 ### Tools
 | Tool          | Installation Guide | Version Check Command |
 |---------------|--------------------|-----------------------|
@@ -99,7 +125,7 @@ There are two ways to install the WSO2 Identity Server using the Helm chart.
     a. Standard installation with NGINX Ingress:
         
     ```shell
-    helm install $RELEASE_NAME wso2/identity-server --version 7.2.0-1 \
+    helm install $RELEASE_NAME wso2/identity-server --version 7.3.0-1 \
         -n $NAMESPACE \
         --set deployment.image.registry="wso2"
     ```
@@ -109,7 +135,7 @@ There are two ways to install the WSO2 Identity Server using the Helm chart.
     If you have installed the Envoy Gateway Controller as described in the Infrastructure section, run the following command to enable Kubernetes Gateway API support:
 
     ```shell
-    helm install $RELEASE_NAME wso2/identity-server --version 7.2.0-1 \
+    helm install $RELEASE_NAME wso2/identity-server --version 7.3.0-1 \
         -n $NAMESPACE \
         --set deployment.image.registry="wso2" \
         --set deployment.ingress.enabled=false \
@@ -119,6 +145,12 @@ There are two ways to install the WSO2 Identity Server using the Helm chart.
     > **Note**: Setting `deployment.ingress.enabled=false` ensures that the NGINX Ingress resources are not created, avoiding potential routing conflicts with the Envoy Gateway.
 
     **Note:** To disable AppArmor, set --set deployment.apparmor.enabled="false" (default: true)
+
+    > **WSO2 Support users:** If you are using images from the WSO2 Container Registry (`registry.wso2.com`) with WSO2 Support, you must authenticate using a registry token. See [Accessing Images via CLI](https://updates.docs.wso2.com/en/latest/updates/wso2-registry-cli-access/) for instructions on generating a token and creating an image pull secret. Then add the following to the install command:
+    > ```shell
+    > --set deployment.image.registry="registry.wso2.com" \
+    > --set deployment.image.imagePullSecret="wso2-registry-credentials"
+    > ```
 
 ### Option 2: Install the Chart from source
 
@@ -132,6 +164,12 @@ If you prefer to build the chart from the source, follow the steps below:
     ```
 
     **Note:** You can customize the product configuration by modifying the `kubernetes-is/confs/deployment.toml` file after cloning the repository.
+
+    > **WSO2 Support users:** If you are using images from the WSO2 Container Registry (`registry.wso2.com`) with WSO2 Support, you must authenticate using a registry token. See [Accessing Images via CLI](https://updates.docs.wso2.com/en/latest/updates/wso2-registry-cli-access/) for instructions on generating a token and creating an image pull secret. Then add the following to the install command:
+    > ```shell
+    > --set deployment.image.registry="registry.wso2.com" \
+    > --set deployment.image.imagePullSecret="wso2-registry-credentials"
+    > ```
 
 2. Install the Helm chart from the cloned repository (Choose one):
 
@@ -154,6 +192,12 @@ If you prefer to build the chart from the source, follow the steps below:
     **Note:** 
     - To disable AppArmor, set --set deployment.apparmor.enabled="false" (default: true)
     - The above commands use the publicly released [WSO2 Identity Server Docker image](https://hub.docker.com/r/wso2/wso2is). To use a custom docker image, update the registry, repository, and tag accordingly. You can also specify an image digest instead of a tag as shown below:
+
+    > **WSO2 Support users:** If you are using images from the WSO2 Container Registry (`registry.wso2.com`) with WSO2 Support, you must authenticate using a registry token. See [Accessing Images via CLI](https://updates.docs.wso2.com/en/latest/updates/wso2-registry-cli-access/) for instructions on generating a token and creating an image pull secret. Then add the following to the install command:
+    > ```shell
+    > --set deployment.image.registry="registry.wso2.com" \
+    > --set deployment.image.imagePullSecret="wso2-registry-credentials"
+    > ```
     
         ```shell
         --set deployment.image.digest=<digest> 
@@ -641,7 +685,7 @@ helm install "$RELEASE_NAME" wso2/identity-server --version 7.2.0-1  -n "$NAMESP
 | deployment.image.digest | string | `""` | Container image digest |
 | deployment.image.imagePullSecret | string | `""` | image pull secret name |
 | deployment.image.pullPolicy | string | `"Always"` | Refer to the Kubernetes documentation on updating images (Ref: https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
-| deployment.image.registry | string | `"docker.wso2.com"` | Container image registry host name |
+| deployment.image.registry | string | `"registry.wso2.com"` | Container image registry host name |
 | deployment.image.repository | string | `"wso2is"` | Container image repository name |
 | deployment.image.tag | string | `"7.2.0"` | Container image tag. Either "tag" or "digest" should defined |
 | deployment.ingress.annotations."nginx.ingress.kubernetes.io/affinity" | string | `"cookie"` |  |
