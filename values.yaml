@@ -96,7 +96,7 @@ deployment:
   # -- Number of deployment replicas
   replicas: 1
   # -- Additional volumeMounts to the pods. All the configuration mounts should be done under the path "/home/wso2carbon/wso2-config-volume/"
-  extraVolumeMounts: []
+  extraVolumeMounts: [ ]
   #  - name: custom-property-file
   #    mountPath: /home/wso2carbon/wso2-config-volume/repository/conf/custom-property-file.properties
   #    subPath: custom-property-file.properties
@@ -123,7 +123,7 @@ deployment:
     enableRunAsGroup: false
     seccompProfile:
       enabled: true
-      # --  Seccomp profile type
+    # --  Seccomp profile type
       type: "RuntimeDefault"
     seLinux:
       enabled: false
@@ -182,11 +182,9 @@ deployment:
       # -- JVM memory options
       memOpts: "-Xms2048m -Xmx2048m"
       # -- JVM parameters
-      javaOpts: -Djdk.tls.ephemeralDHKeySize=2048
-        -Djdk.tls.rejectClientInitiatedRenegotiation=true
+      javaOpts: -Djdk.tls.ephemeralDHKeySize=2048 -Djdk.tls.rejectClientInitiatedRenegotiation=true
         -Dhttpclient.hostnameVerifier=Strict -Djdk.tls.client.protocols=TLSv1.2
-        -Djava.util.prefs.systemRoot=/home/wso2carbon/.java
-        -Djava.util.prefs.userRoot=/home/wso2carbon/.java/.userPrefs
+        -Djava.util.prefs.systemRoot=/home/wso2carbon/.java -Djava.util.prefs.userRoot=/home/wso2carbon/.java/.userPrefs
   # -- Product version
   buildVersion: "7.2.0"
   # -- Product pack name
@@ -319,101 +317,96 @@ deploymentToml:
       # -- The database username
       username: "wso2carbon"
       # -- The database JDBC URL
-      url: "jdbc:h2:./repository/database/WSO2IDENTITY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK\
-        _TIMEOUT=60000"
+      url: "jdbc:h2:./repository/database/WSO2IDENTITY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000"
       # -- The password
       password: "wso2carbon"
       # -- The database JDBC driver
       driver: "org.h2.Driver"
       # -- The database pool options
       poolOptions:
-        #        maxActive: "50"
-        #        maxWait: "60000"
-        #        minIdle: "10"
-        #        validationInterval: "30000"
-        #        defaultAutoCommit: true
-        #        commitOnReturn: false
+#        maxActive: "50"
+#        maxWait: "60000"
+#        minIdle: "10"
+#        validationInterval: "30000"
+#        defaultAutoCommit: true
+#        commitOnReturn: false
     shared:
       # -- The SQL server type(ex: mysql, mssql)
       type: "h2"
       # -- The database username
       username: "wso2carbon"
       # -- The database JDBC URL
-      url: "jdbc:h2:./repository/database/WSO2SHARED_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_T\
-        IMEOUT=60000"
+      url: "jdbc:h2:./repository/database/WSO2SHARED_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000"
       # -- The database password
       password: "wso2carbon"
       # -- The database JDBC driver
       driver: "org.h2.Driver"
       # -- The database pool options
       poolOptions:
-        #          maxActive: "50"
-        #          maxWait: "60000"
-        #          minIdle: "10"
-        #          validationInterval: "30000"
-        #          defaultAutoCommit: true
-        #          commitOnReturn: false
+#          maxActive: "50"
+#          maxWait: "60000"
+#          minIdle: "10"
+#          validationInterval: "30000"
+#          defaultAutoCommit: true
+#          commitOnReturn: false
     user:
       # -- The SQL server type(ex: mysql, mssql)
       type: "h2"
       # -- The database username
       username: "wso2carbon"
       # -- The database JDBC URL
-      url: "jdbc:h2:./repository/database/WSO2SHARED_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_T\
-        IMEOUT=60000"
+      url: "jdbc:h2:./repository/database/WSO2SHARED_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000"
       # -- The database password
       password: "wso2carbon"
       # -- The database JDBC driver
       driver: "org.h2.Driver"
       # -- The database pool options
       poolOptions:
-        #          maxActive: "50"
-        #          maxWait: "60000"
-        #          minIdle: "10"
-        #          validationInterval: "30000"
-        #          defaultAutoCommit: true
-        #          commitOnReturn: false
+#          maxActive: "50"
+#          maxWait: "60000"
+#          minIdle: "10"
+#          validationInterval: "30000"
+#          defaultAutoCommit: true
+#          commitOnReturn: false
     consent:
       # -- The SQL server type(ex: mysql, mssql)
       type: "h2"
       # -- The database username
       username: "wso2carbon"
       # -- The database JDBC URL
-      url: "jdbc:h2:./repository/database/WSO2IDENTITY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK\
-        _TIMEOUT=60000"
+      url: "jdbc:h2:./repository/database/WSO2IDENTITY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000"
       # -- The database password
       password: "wso2carbon"
       # -- The database JDBC driver
       driver: "org.h2.Driver"
       # -- The database pool options
       poolOptions:
-        #        maxActive: "80"
-        #        maxWait: "60000"
-        #        minIdle: "5"
-        #        testOnBorrow: true
-        #        validationQuery: "SELECT 1"
-        #        validationInterval: "30000"
-        #        defaultAutoCommit: false
+#        maxActive: "80"
+#        maxWait: "60000"
+#        minIdle: "5"
+#        testOnBorrow: true
+#        validationQuery: "SELECT 1"
+#        validationInterval: "30000"
+#        defaultAutoCommit: false
     agentIdentity:
       # -- The SQL server type(ex: mysql, mssql)
       type: "h2"
       # -- The database username
       username: "wso2carbon"
       # -- The database JDBC URL
-      url: "jdbc:h2:./repository/database/WSO2AGENTIDENTITY_DB;DB_CLOSE_ON_EXIT=FALSE\
-        ;LOCK_TIMEOUT=60000"
+      url: "jdbc:h2:./repository/database/WSO2AGENTIDENTITY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000"
       # -- The database password
       password: "wso2carbon"
       # -- The database JDBC driver
       driver: "org.h2.Driver"
       # -- The database pool options
       poolOptions:
-        #        maxActive: "50"
-        #        maxWait: "60000"
-        #        minIdle: "10"
-        #        validationInterval: "30000"
-        #        defaultAutoCommit: true
-        #        commitOnReturn: false
+#        maxActive: "50"
+#        maxWait: "60000"
+#        minIdle: "10"
+#        validationInterval: "30000"
+#        defaultAutoCommit: true
+#        commitOnReturn: false
   keystore:
     tls:
       fileName: "wso2carbon.p12"
@@ -446,15 +439,15 @@ deploymentToml:
     secretKey: ""
   outputAdapter:
     email:
-      # -- Enable the email sender. Ref: https://is.docs.wso2.com/en/latest/deploy/configure-email-sending/#configure-the-email-sender-globally
-      enabled: false
-      fromAddress: ""
-      username: ""
-      hostname: ""
-      port: 587
-      password: ""
-      enableStartTls: true
-      enableAuthentication: true
+     # -- Enable the email sender. Ref: https://is.docs.wso2.com/en/latest/deploy/configure-email-sending/#configure-the-email-sender-globally
+     enabled: false
+     fromAddress: ""
+     username: ""
+     hostname: ""
+     port: 587
+     password: ""
+     enableStartTls: true
+     enableAuthentication: true
   oauth:
     # -- Enable/Disable the scope authorization for all the OAuth clients. Ref: https://apim.docs.wso2.com/en/latest/api-security/key-management/third-party-key-managers/configure-wso2is7-connector/
     authorizeAllScopes: false
@@ -475,51 +468,12 @@ deploymentToml:
           # -- Enabling SSL protocols in the HTTPS transport. Ref: https://is.docs.wso2.com/en/latest/deploy/security/configure-transport-level-security/#enabling-ssl-protocols-in-the-wso2-is
           protocols: "+TLSv1, +TLSv1.1, +TLSv1.2, +TLSv1.3"
           # -- Configure TSL ciphers in the HTTPS transport. Ref: https://is.docs.wso2.com/en/latest/deploy/security/configure-transport-level-security/#disable-weak-ciphers
-          ciphers: "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
-            TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-            TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-            TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384,
-            TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,
-            TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384,
-            TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-            TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256,
-            TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256,
-            TLS_DHE_DSS_WITH_AES_128_GCM_SHA256,
-            TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,
-            TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384,
-            TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384,
-            TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,
-            TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,
-            TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
-            TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA,
-            TLS_ECDH_RSA_WITH_AES_256_CBC_SHA, TLS_DHE_DSS_WITH_AES_256_CBC_SHA,
-            TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
-            TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,
-            TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,
-            TLS_DHE_DSS_WITH_AES_128_CBC_SHA256,
-            TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
-            TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,
-            TLS_ECDH_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_DSS_WITH_AES_128_CBC_SHA,
-            TLS_EMPTY_RENEGOTIATION_INFO_SCSVF"
+          ciphers: "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384, TLS_DHE_DSS_WITH_AES_256_GCM_SHA384, TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_DSS_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384, TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384, TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384, TLS_DHE_DSS_WITH_AES_256_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDH_RSA_WITH_AES_256_CBC_SHA, TLS_DHE_DSS_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_DSS_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_DSS_WITH_AES_128_CBC_SHA, TLS_EMPTY_RENEGOTIATION_INFO_SCSVF"
     thrift:
       # -- Enabling SSL protocols in ThriftAuthenticationService. Ref: https://is.docs.wso2.com/en/latest/deploy/security/configure-transport-level-security/#enable-ssl-protocols-and-ciphers-in-thriftauthenticationservice
       protocols: "TLSv1,TLSv1.1,TLSv1.2"
       # -- Configure TSL ciphers in ThriftAuthenticationService. Ref: https://is.docs.wso2.com/en/latest/deploy/security/configure-transport-level-security/#enable-ssl-protocols-and-ciphers-in-thriftauthenticationservice
-      ciphers: "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_\
-        GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_ECDSA_WITH_AE\
-        S_256_GCM_SHA384,TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,TLS_ECDH_RSA_WITH_\
-        AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_ECDSA\
-        _WITH_AES_128_GCM_SHA256,TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_D\
-        SS_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_\
-        ECDH_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384\
-        ,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_DHE_DSS_WITH_AES_256_CBC_SHA\
-        256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_256_CB\
-        C_SHA,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,TLS_DHE_DSS_WITH_AES_256_CBC_SH\
-        A,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_C\
-        BC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_DHE_DSS_WITH_AES_128\
-        _CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AE\
-        S_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_DSS_WITH_AES_12\
-        8_CBC_SHA"
+      ciphers: "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384,TLS_DHE_DSS_WITH_AES_256_GCM_SHA384,TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_DSS_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_DHE_DSS_WITH_AES_256_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,TLS_DHE_DSS_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_DHE_DSS_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_DSS_WITH_AES_128_CBC_SHA"
   userAccountLock:
     # -- Enable user account lock. Ref: https://is.docs.wso2.com/en/latest/guides/identity-lifecycles/lock-account/
     enabled: true
@@ -551,7 +505,7 @@ deploymentToml:
       captureAndUpdateEmailAddress: true
       showEmailAddressInUI: true
       useEventHandlerBasedEmailSender: true
-      emailAddressRegex: "(?&lt;=.{1}).(?=.*@)"
+      emailAddressRegex: '(?&lt;=.{1}).(?=.*@)'
       tokenExpirationTime: 300000
       # -- Enable account locking by email OTP. Ref: https://is.docs.wso2.com/en/latest/guides/identity-lifecycles/lock-accounts-by-failed-otp-attempts/
       userAccountLockEnabled: false
@@ -592,11 +546,10 @@ deploymentToml:
     # -- Enable account locking by OTP. Ref: https://is.docs.wso2.com/en/latest/guides/identity-lifecycles/lock-accounts-by-failed-otp-attempts/
     userAccountLockEnabled: false
   # -- Add custom configurations to deployment.toml.
-  extraConfigs:
-    #|
+  extraConfigs: #|
     # [transport.https.properties]
     # proxyPort = 443
-    # -- K8s API versions for K8s kinds
+# -- K8s API versions for K8s kinds
 k8sKindAPIVersions:
   # -- K8s API version for kind Deployment
   deployment: "apps/v1"
