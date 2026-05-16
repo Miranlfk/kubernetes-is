@@ -165,12 +165,6 @@ If you prefer to build the chart from the source, follow the steps below:
 
     **Note:** You can customize the product configuration by modifying the `kubernetes-is/confs/deployment.toml` file after cloning the repository.
 
-    > **WSO2 Support users:** If you are using images from the WSO2 Container Registry (`registry.wso2.com`) with WSO2 Support, you must authenticate using a registry token. See [Accessing Images via CLI](https://updates.docs.wso2.com/en/latest/updates/wso2-registry-cli-access/) for instructions on generating a token and creating an image pull secret. Then add the following to the install command:
-    > ```shell
-    > --set deployment.image.registry="registry.wso2.com" \
-    > --set deployment.image.imagePullSecret="wso2-registry-credentials"
-    > ```
-
 2. Install the Helm chart from the cloned repository (Choose one):
 
     a. Standard installation with NGINX Ingress:
