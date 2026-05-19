@@ -125,7 +125,7 @@ There are two ways to install the WSO2 Identity Server using the Helm chart.
     a. Standard installation with NGINX Ingress:
         
     ```shell
-    helm install $RELEASE_NAME wso2/identity-server --version 7.2.0-1 \
+    helm install $RELEASE_NAME wso2/identity-server --version 7.3.0-1 \
         -n $NAMESPACE \
         --set deployment.image.registry="wso2"
     ```
@@ -135,7 +135,7 @@ There are two ways to install the WSO2 Identity Server using the Helm chart.
     If you have installed the Envoy Gateway Controller as described in the Infrastructure section, run the following command to enable Kubernetes Gateway API support:
 
     ```shell
-    helm install $RELEASE_NAME wso2/identity-server --version 7.2.0-1 \
+    helm install $RELEASE_NAME wso2/identity-server --version 7.3.0-1 \
         -n $NAMESPACE \
         --set deployment.image.registry="wso2" \
         --set deployment.ingress.enabled=false \
@@ -594,7 +594,7 @@ export RELEASE_NAME='<RELEASE_NAME>'
 ```
 
 ```shell
-helm install "$RELEASE_NAME" wso2/identity-server --version 7.2.0-1  -n "$NAMESPACE" \
+helm install "$RELEASE_NAME" wso2/identity-server --version 7.3.0-1  -n "$NAMESPACE" \
 --set deployment.image.registry="${IMAGE_REGISTRY_HOSTNAME}" \
 --set deployment.image.repository="${IMAGE_REPOSITORY_NAME}" \
 --set deployment.image.digest="${IMAGE_DIGEST}" \
@@ -666,7 +666,7 @@ helm install "$RELEASE_NAME" wso2/identity-server --version 7.2.0-1  -n "$NAMESP
 | Key | Type | Default | Description |
 |-----|------|----|-------------|
 | deployment.apparmor.profile | string | `"runtime/default"` | Apparmor profile |
-| deployment.buildVersion | string | `"7.2.0"` | Product version |
+| deployment.buildVersion | string | `"7.3.0"` | Product version |
 | deployment.enableCorrelationLogs | bool | `false` | Enable correlation logs |
 | deployment.externalJKS.enabled | bool | `false` | Mount external  keystore and trustores |
 | deployment.externalJKS.secretName | string | `"keystores"` | K8s secret name which contains JKS files |
@@ -681,7 +681,7 @@ helm install "$RELEASE_NAME" wso2/identity-server --version 7.2.0-1  -n "$NAMESP
 | deployment.image.pullPolicy | string | `"Always"` | Refer to the Kubernetes documentation on updating images (Ref: https://kubernetes.io/docs/concepts/containers/images/#updating-images) |
 | deployment.image.registry | string | `"registry.wso2.com"` | Container image registry host name |
 | deployment.image.repository | string | `"wso2-is/is"` | Container image repository name |
-| deployment.image.tag | string | `"7.2.0"` | Container image tag. Either "tag" or "digest" should defined |
+| deployment.image.tag | string | `"7.3.0"` | Container image tag. Either "tag" or "digest" should defined |
 | deployment.ingress.annotations."nginx.ingress.kubernetes.io/affinity" | string | `"cookie"` |  |
 | deployment.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTPS"` |  |
 | deployment.ingress.annotations."nginx.ingress.kubernetes.io/force-ssl-redirect" | string | `"true"` |  |
