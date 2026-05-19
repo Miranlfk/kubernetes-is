@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [v7.3.0-1] - 2026-05-19
+
+### Added
+
+- Support for **WSO2 Identity Server 7.3.0** in Helm charts.
+- Support for **Envoy Gateway** as an alternative ingress controller to Nginx.
+- Added `GatewayClass`, `Gateway`, `HTTPRoute`, `EnvoyProxy`, and `BackendTLSPolicy` Kubernetes resource templates for Envoy Gateway integration.
+- Added `deployment.gateway.enabled` flag in `values.yaml` to toggle between Nginx ingress and Envoy Gateway.
+- Added `deployment.gateway.gatewayClassName`, `deployment.gateway.hostName`, and `deployment.gateway.tlsSecretsName` configuration options for Envoy Gateway.
+- Added `deployment.gateway.backendCACertificate` configuration for Backend TLS between Envoy Gateway and WSO2 IS pods.
+- Added `gatewayKindAPIVersions` section in `values.yaml` to configure Gateway API resource versions (`Gateway`, `GatewayClass`, `HTTPRoute`, `BackendTLSPolicy`, `EnvoyProxy`).
+
+### Changed
+
+- Updated Docker image tags and build version to align with WSO2 IS 7.3.0.
+- Improved documentation in the README for Envoy Gateway integration and usage instructions.
+
 ## [v7.2.0-1] - 2025-11-12
 
 ### Added
